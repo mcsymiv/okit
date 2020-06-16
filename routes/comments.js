@@ -5,10 +5,6 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
     res.send('/comment')
 });
-/* GET new page. */
-router.get('/new', (req, res, next) => {
-    res.send('/new comment')
-});
 /* POST create page. */
 router.post('/', (req, res, next) => {
     res.send('/create comment')
