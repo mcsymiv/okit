@@ -4,6 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+
+const User = require('./models/user');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -12,16 +16,44 @@ const commentsRouter = require('./routes/comments');
 
 const app = express();
 
+//mongooseDB connect
+mongoose
+  .connect("mongodb://localhost:27017/okit", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
+  .then(() => {
+    console.log("database connected");
+  })
+  .catch(err => {
+    console.log("Could not connect", err);
+  });
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//basic boilrerplate config
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//session config
+app.use(session({
+  secret: 'okit application',
+  resave: false,
+  saveUninitialized: true
+}));
+//passport config
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//mount routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recipes', recipesRouter);
