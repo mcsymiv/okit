@@ -5,7 +5,10 @@ const {
     getRecipes, 
     getNewRecipe, 
     postCreateRecipe, 
-    getShowRecipe
+    getShowRecipe,
+    getEditRecipe,
+    updateRecipe,
+    deleteRecipe
 } = require('../controllers/recipes')
 
 /* GET index page. */
@@ -17,17 +20,11 @@ router.post('/', asyncErrorHandler(postCreateRecipe));
 /* GET show page. */
 router.get('/:recipe_id', asyncErrorHandler(getShowRecipe));
 /* GET edit page. */
-router.get('/:recipe_id/edit', (req, res, next) => {
-    res.send('/edit recipe')
-});
+router.get('/:recipe_id/edit', asyncErrorHandler(getEditRecipe));
 /* PUT update page. */
-router.put('/:recipe_id', (req, res, next) => {
-    res.send('/udpade recipe')
-});
+router.put('/:recipe_id', asyncErrorHandler(updateRecipe));
 /* DELETE home page. */
-router.delete('/:recipe_id', (req, res, next) => {
-    res.send('/delete recipe')
-});
+router.delete('/:recipe_id', asyncErrorHandler(deleteRecipe));
 
 
 module.exports = router;

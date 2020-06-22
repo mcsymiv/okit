@@ -6,7 +6,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
+var methodOverride = require('method-override');
+var sassMiddleware = require('node-sass-middleware');
 
 const User = require('./models/user');
 
@@ -39,10 +41,17 @@ app.set('view engine', 'ejs');
 //basic boilrerplate config
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: false, // true = .sass and false = .scss
+  sourceMap: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public/images', 'okit-logo.png')))
+app.use(favicon(path.join(__dirname, 'public/images', 'okit-logo.png')));
+app.use(methodOverride('_method'))
 //session config
 app.use(session({
   secret: 'okit application',
