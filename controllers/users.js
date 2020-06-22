@@ -10,6 +10,9 @@ module.exports = {
         await User.register(newUser, req.body.password)
         res.redirect('/');
     },
+    userLoginGet(req,res,next){
+        res.send('/user login page')
+    },
     userLoginPost(req,res,next){
         passport.authenticate('local', { 
             failureRedirect: '/login',     //res.redirect('/users/' + req.user.username);

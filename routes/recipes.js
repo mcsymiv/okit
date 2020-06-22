@@ -1,22 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const { asyncErrorHandler } = require('../middleware');
+const { 
+    getRecipes, 
+    getNewRecipe, 
+    postCreateRecipe, 
+    getShowRecipe
+} = require('../controllers/recipes')
 
 /* GET index page. */
-router.get('/', (req, res, next) => {
-    res.send('/recipes')
-});
+router.get('/', asyncErrorHandler(getRecipes));
 /* GET new page. */
-router.get('/new', (req, res, next) => {
-    res.send('/new recipe')
-});
+router.get('/new', getNewRecipe);
 /* POST create page. */
-router.post('/', (req, res, next) => {
-    res.send('/create recipe')
-});
+router.post('/', asyncErrorHandler(postCreateRecipe));
 /* GET show page. */
-router.get('/:recipe_id', (req, res, next) => {
-    res.send('/show recipe')
-});
+router.get('/:recipe_id', asyncErrorHandler(getShowRecipe));
 /* GET edit page. */
 router.get('/:recipe_id/edit', (req, res, next) => {
     res.send('/edit recipe')

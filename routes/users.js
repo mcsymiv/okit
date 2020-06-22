@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { postMethodRegister, userLoginPost, userLogout } = require('../controllers/users');
+const { postMethodRegister, userLoginGet, userLoginPost, userLogout } = require('../controllers/users');
 const { asyncErrorHandler } = require('../middleware');
 const User = require('../models/user');
 
@@ -18,13 +18,11 @@ router.post('/register', asyncErrorHandler(postMethodRegister));
 
 //LOGIN
 /* GET login page */
-router.get('/login', (req, res, next) => {
-  res.send('/login page');
-});
+router.get('/login', userLoginGet);
 /* POST login page */
 router.post('/login', userLoginPost);
-
 //LOGOUT
+/* GET logout page */
 router.get('/logout', userLogout);
 
 //PROFILE
