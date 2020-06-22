@@ -41,13 +41,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 //session config
 app.use(session({
   secret: 'okit application',
   resave: false,
   saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 //passport config
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
