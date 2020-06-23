@@ -1,7 +1,7 @@
 <%- include("../partials/header") %>
 
     <h1>Create recipe</h1>
-    <form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST">
+    <form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST" id="recipeEditForm" enctype="multipart/form-data">
         <div>
             <label for="title">Title</label>
                 <input type="text" id="title" name="recipe[title]" value="<%= recipe.title %>">
@@ -10,7 +10,34 @@
             <label for="description">Description</label>
                 <input type="text" id="description" name="recipe[description]" value="<%= recipe.description %>">
         </div>
+        <div>
+            <input type="file" id="imageUpload" name="images" accept="image/*" multiple>
+            <div>
+                <% recipe.images.forEach((image,i)=>{ %>
+                    <span><img src="<%= image.url %>" width="300" alt=""></span>
+                    <span>
+                        <label for="image<%= i %>">Delete</label>
+                        <input type="checkbox" name="deleteImages[]" id="image<%= i %>" value="<%= image.public_id %>" class="checkboxDelete">
+                    </span>
+                <% }) %>
+            </div>
+        </div>
         <input type="submit" value="Update recipe">
     </form>
+
+    <script>
+        document.querySelector('#recipeEditForm').addEventListener('submit', function(event){
+            let imgsUploads = document.querySelector('#imageUpload').files.length
+            let imgsDeletions = document.querySelectorAll('.checkboxDelete:checked').length
+            let imgsExisting = document.querySelectorAll('.checkboxDelete').length
+            let limit = 10; 
+            let imagesInAction = (imgsUploads + ( imgsExisting - imgsDeletions ))
+            if( imagesInAction > limit ){
+                event.preventDefault();
+                let removeAmont = imagesInAction - limit
+                alert(`You can have only ${limit} images in total. \n Please, remove ${removeAmont} image${removeAmont === 1? '' : 's'}.`)
+            }
+        })
+    </script>
 
 <%- include("../partials/footer") %>

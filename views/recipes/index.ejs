@@ -6,7 +6,7 @@
             <%= recipe.title %> - <i>created</i> <%= recipe.date.toDateString() %>
         </div>
         <%= recipe.description %>
-        <a href="recipes/<%= recipe._id %>">View more</a>
+        <a href="<%= recipe._id %>">View more</a>
     <% }) %>
 
 <%- include("../partials/footer") %>

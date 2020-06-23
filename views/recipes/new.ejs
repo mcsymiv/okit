@@ -1,7 +1,7 @@
 <%- include("../partials/header") %>
 
     <h1>Create recipe</h1>
-    <form action="/recipes" method="POST">
+    <form action="/recipes" method="POST" enctype="multipart/form-data">
         <div>
             <label for="title">Title</label>
                 <input type="text" id="title" placeholder="Recipe name" name="recipe[title]">
@@ -9,6 +9,9 @@
         <div>
             <label for="description">Description</label>
                 <input type="text" id="description" placeholder="Recipe description" name="recipe[description]">
+        </div>
+        <div>
+            <input type="file" name="images" accept="image/*" multiple>
         </div>
         <input type="submit" value="Create recipe">
     </form>

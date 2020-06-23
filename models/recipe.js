@@ -11,7 +11,12 @@ const RecipeSchema = new Schema({
             stepDescription: String
         }
      ],
-    images: [ String ],
+    images: [ 
+        {
+            url: String,
+            public_id: String
+        }
+     ],
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
