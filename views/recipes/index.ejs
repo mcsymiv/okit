@@ -3,15 +3,14 @@
     <div>
         <h1>Recipes</h1>
         <div>
-            <a href="./new">Create Recipe</a>
+            <a href="recipes/new">Create Recipe</a>
         </div>
     </div>
     <% recipes.forEach((recipe)=>{ %>
         <div>
             <%= recipe.title %> - <i>created</i> <%= recipe.date.toDateString() %>
         </div>
-        <%= recipe.description %>
-        <a href="<%= recipe._id %>">View more</a>
+        <span><%= recipe.description %> - <a href="recipes/<%= recipe._id %>">View more</a></span>
     <% }) %>
 
 <%- include("../partials/footer") %>

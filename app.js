@@ -54,7 +54,7 @@ app.use(sassMiddleware({
   force: true
 }));
 express.static(path.join(__dirname, 'public'));
-app.use(favicon(path.join(__dirname, 'public/images', 'okit-logo.png')));
+// app.use(favicon(path.join(__dirname, 'public/stylesheets/images', 'okit-logo.png')));
 app.use(methodOverride('_method'))
 //session config
 app.use(session({

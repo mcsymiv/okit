@@ -66,8 +66,10 @@ module.exports = {
     async deleteRecipe(req,res,next){
 
         let recipe = await Recipe.findById(req.params.recipe_id)
-        for(const image of recipe.images){
-            await cloud.v2.uploader.destroy(image.public_id)
+        if(recipe.images.length){
+            for(const image of recipe.images){
+                await cloud.v2.uploader.destroy(image.public_id)
+            }
         }
         await recipe.remove()
         res.redirect('/recipes')
