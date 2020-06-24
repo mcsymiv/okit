@@ -1,6 +1,11 @@
 <%- include("../partials/header") %>
 
-    <h1>Index recipes</h1>
+    <div>
+        <h1>Recipes</h1>
+        <div>
+            <a href="./new">Create Recipe</a>
+        </div>
+    </div>
     <% recipes.forEach((recipe)=>{ %>
         <div>
             <%= recipe.title %> - <i>created</i> <%= recipe.date.toDateString() %>

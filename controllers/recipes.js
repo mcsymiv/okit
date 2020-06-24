@@ -64,7 +64,12 @@ module.exports = {
         res.redirect(`/recipes/${recipe.id}`)
     },
     async deleteRecipe(req,res,next){
-        await Recipe.findByIdAndRemove(req.params.recipe_id)
+
+        let recipe = await Recipe.findById(req.params.recipe_id)
+        for(const image of recipe.images){
+            await cloud.v2.uploader.destroy(image.public_id)
+        }
+        await recipe.remove()
         res.redirect('/recipes')
     }
 }

@@ -45,12 +45,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
+  src: path.join(__dirname, '/scss'),
+  dest: path.join(__dirname, '/public/stylesheets'),
   indentedSyntax: false, // true = .sass and false = .scss
-  sourceMap: true
+  sourceMap: true,
+  outputStyle: "compressed",
+  debug: true,
+  force: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+express.static(path.join(__dirname, 'public'));
 app.use(favicon(path.join(__dirname, 'public/images', 'okit-logo.png')));
 app.use(methodOverride('_method'))
 //session config
