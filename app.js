@@ -34,10 +34,13 @@ mongoose
     console.log("Could not connect", err);
   });
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//setup public assets directory 
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 //basic boilrerplate config
 app.use(logger('dev'));
@@ -53,9 +56,8 @@ app.use(sassMiddleware({
   debug: true,
   force: true
 }));
-express.static(path.join(__dirname, 'public'));
-// app.use(favicon(path.join(__dirname, 'public/stylesheets/images', 'okit-logo.png')));
 app.use(methodOverride('_method'))
+
 //session config
 app.use(session({
   secret: 'okit application',
@@ -64,6 +66,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 //passport config
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -82,6 +85,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use((err, req, res, next) => {
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -1,23 +1,90 @@
-<%- include("../partials/header") %>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Okit App</title>
+        <link rel="stylesheet" href="/public/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+    </head>
+    <body>
+        <style>
+            #map {
+                width: 400px;
+                height: 300px;
+            }
+            .marker {
+                background-image: url('/images/marker-icon.png');
+                background-size: cover;
+                width: 50px;
+                height: 50px;
+                cursor: pointer;
+            }
+            .mapboxgl-popup {
+                max-width: 200px;
+            }
+            .mapboxgl-popup-content {
+                font-family: 'Century Gothic', sans-serif;
+            }
 
-    <h1>
-        <%= recipe.title %>
-    </h1> - 
-    <span>
-        <%= recipe.date.toDateString() %>
-    </span>
-    <h3>
-        <%= recipe.description %>
-    </h3>
-    <div>
-        <% recipe.images.forEach((image)=>{ %>
-            <span>
-                <img src="<%= image.url %>" width="300" alt="">
-            </span>
-        <% }) %>
-    </div>
-    <a href="<%= recipe._id %>/edit">Edit</a>
-    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" >
-        <input type="submit" value="Delete recipe">
-    </form>
-<%- include("../partials/footer") %>
+        </style>
+        <div class="wrap">
+        <h1>
+            <%= recipe.title %>
+        </h1> - 
+        <span>
+            <%= recipe.date.toDateString() %> - <i><%= recipe.location %></i>
+        </span>
+        <h3>
+            <%= recipe.description %>
+        </h3>
+        <div>
+            <% recipe.images.forEach((image)=>{ %>
+                <span>
+                    <img src="<%= image.url %>" width="300" alt="">
+                </span>
+            <% }) %>
+        </div>
+        <div id='map'></div>
+        <a href="<%= recipe._id %>/edit">Edit</a>
+        <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" >
+            <input type="submit" value="Delete recipe">
+        </form>
+
+
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWNzeW1pdiIsImEiOiJja2J0MzlxM3MwNjFxMzRxeGY0ZjFpemI0In0.kqH67-WIChHHgjsQanX8Zw';
+
+        var recipe = <%- JSON.stringify(recipe); %>
+
+        if(recipe.coordinates){
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/light-v10',
+                center: recipe.coordinates,
+                zoom: 9
+            });
+
+            // add markers to map
+
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for location and add to the map
+            new mapboxgl.Marker(el)
+            .setLngLat(recipe.coordinates)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML('<h3>' + recipe.title + '</h3><p>' + recipe.location + '</p>'))
+            .addTo(map);
+        }
+
+    </script>
+
+
+</div> <!-- wrap -->
+</body>
+</html>

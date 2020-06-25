@@ -10,7 +10,7 @@
         <div>
             <%= recipe.title %> - <i>created</i> <%= recipe.date.toDateString() %>
         </div>
-        <span><%= recipe.description %> - <a href="recipes/<%= recipe._id %>">View more</a></span>
+        <span><%= recipe.description %> - <a href="/recipes/<%= recipe._id %>">View more</a></span>
     <% }) %>
 
 <%- include("../partials/footer") %>
