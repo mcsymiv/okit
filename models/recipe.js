@@ -8,11 +8,14 @@ const RecipeSchema = new Schema({
     coordinates: Array,
     steps: [ 
         {
-            portion: String,
-            cookTime: String,
+            tip: String,
             stepDescription: String
         }
-     ],
+    ],
+    mainImage: {
+        url: String,
+        public_id: String
+    },
     images: [ 
         {
             url: String,

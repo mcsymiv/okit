@@ -1,15 +1,18 @@
 require('dotenv').config()
 const createError = require('http-errors');
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const favicon = require('serve-favicon');
-var methodOverride = require('method-override');
-var sassMiddleware = require('node-sass-middleware');
+const methodOverride = require('method-override');
+const sassMiddleware = require('node-sass-middleware');
+const engine = require('ejs-mate');
 
 const User = require('./models/user');
 
@@ -35,18 +38,19 @@ mongoose
   });
 
 // view engine setup
+app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//setup public assets directory 
-app.use(express.static(path.join(__dirname, 'public')));
-
-
 //basic boilrerplate config
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+//setup public assets directory 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
 app.use(sassMiddleware({
   src: path.join(__dirname, '/scss'),
   dest: path.join(__dirname, '/public/stylesheets'),
@@ -56,7 +60,7 @@ app.use(sassMiddleware({
   debug: true,
   force: true
 }));
-app.use(methodOverride('_method'))
+
 
 //session config
 app.use(session({
@@ -71,6 +75,17 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// set flash messages
+app.use(function(req,res,next){
+  res.locals.success = req.session.success || '';
+  delete req.session.success;
+  res.locals.error = req.session.error || '';
+  delete req.session.error;
+
+  // continue on with next function in middleware chain
+  next()
+})
 
 //mount routes
 app.use('/', indexRouter);
@@ -93,6 +108,11 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  
+  // console.log(`Error: ${err}`)
+  // req.session.error = err.message
+  // res.redirect('back')
+
 });
 
 module.exports = app;

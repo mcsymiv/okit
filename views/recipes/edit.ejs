@@ -1,4 +1,4 @@
-<%- include("../partials/header") %>
+<% layout('layouts/boilerplate') -%>
 
     <h1>Create recipe</h1>
     <form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST" id="recipeEditForm" enctype="multipart/form-data">
@@ -29,19 +29,4 @@
         <input type="submit" value="Update recipe">
     </form>
 
-    <script>
-        document.querySelector('#recipeEditForm').addEventListener('submit', function(event){
-            let imgsUploads = document.querySelector('#imageUpload').files.length
-            let imgsDeletions = document.querySelectorAll('.checkboxDelete:checked').length
-            let imgsExisting = document.querySelectorAll('.checkboxDelete').length
-            let limit = 10; 
-            let imagesInAction = (imgsUploads + ( imgsExisting - imgsDeletions ))
-            if( imagesInAction > limit ){
-                event.preventDefault();
-                let removeAmont = imagesInAction - limit
-                alert(`You can have only ${limit} images in total. \n Please, remove ${removeAmont} image${removeAmont === 1? '' : 's'}.`)
-            }
-        })
-    </script>
-
-<%- include("../partials/footer") %>
+    <script src="/javascripts/recipe/edit.js"></script>

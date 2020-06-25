@@ -1,4 +1,4 @@
-<%- include("../partials/header") %>
+<% layout('layouts/boilerplate') -%>
 
     <div>
         <h1>Recipes</h1>
@@ -13,4 +13,3 @@
         <span><%= recipe.description %> - <a href="/recipes/<%= recipe._id %>">View more</a></span>
     <% }) %>
 
-<%- include("../partials/footer") %>

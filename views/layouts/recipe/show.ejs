@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Okit App</title>
-    <link rel="stylesheet" href="/public/stylesheets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/style.css">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
     <div class="wrap">
-        
+        <% include ../../partials/nav-main %>
+        <% include ../../partials/nav-sub %>
+        <% include ../../partials/flash %>
+        <%- body -%>
+    </div> <!-- wrap -->
+    <script>
+        var recipe = <%- JSON.stringify(recipe); %>
+    </script>
+    <script src="/javascripts/recipe/map.js"></script>
+</body>
+</html>

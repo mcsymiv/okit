@@ -1,0 +1,15 @@
+.nav-sub {
+    width: 100%;
+    padding:10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    &__right, &__left {
+        list-style-type: none;
+        display: flex;
+        &--list-item{
+            display: inline-block;
+            margin: 0 10px 0 10px;
+        }
+    }
+}

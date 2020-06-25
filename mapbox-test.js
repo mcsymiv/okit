@@ -15,6 +15,3 @@ async function geoCode(location){ // param format "City, Country"
 }
 
 geoCode('Kiev, Ukraine')
-
-
-

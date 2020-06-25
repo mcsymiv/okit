@@ -1,4 +1,4 @@
-<%- include("../partials/header") %>
+<% layout('layouts/boilerplate') -%>
 
     <h1>Create recipe</h1>
     <form action="/recipes" method="POST" enctype="multipart/form-data">
@@ -15,9 +15,8 @@
                 <input type="text" id="description" placeholder="Recipe description" name="recipe[description]">
         </div>
         <div>
-            <input type="file" name="images" accept="image/*" multiple>
+            <input type="file" name="images" accept="images/*" multiple>
         </div>
         <input type="submit" value="Create recipe">
     </form>
 
-<%- include("../partials/footer") %>

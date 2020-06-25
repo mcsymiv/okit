@@ -26,6 +26,7 @@ module.exports = {
     // CREATE
     async postCreateRecipe(req, res, next){
         req.body.recipe.images = []
+        
         for(const file of req.files){
             let image = await cloud.v2.uploader.upload(file.path)
             req.body.recipe.images.push({
@@ -33,12 +34,15 @@ module.exports = {
                 public_id: image.public_id
             })
         }
+
         let response = await geocodingClient.forwardGeocode({
             query: req.body.recipe.location,
             limit: 1
         }).send()
         req.body.recipe.coordinates = response.body.features[0].geometry.coordinates
+        
         let recipe = await Recipe.create(req.body.recipe)
+        req.session.success = `${recipe.title} recipe created successefully`
         res.redirect(`/recipes/${recipe.id}`)
     },
     // SHOW
@@ -107,3 +111,5 @@ module.exports = {
         res.redirect('/recipes')
     }
 }
+
+            
