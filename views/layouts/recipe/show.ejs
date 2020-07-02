@@ -14,7 +14,9 @@
         <% include ../../partials/nav-main %>
         <% include ../../partials/nav-sub %>
         <% include ../../partials/flash %>
-        <%- body -%>
+        <div class="content">
+            <%- body -%>
+        </div>
     </div> <!-- wrap -->
     <script>
         var recipe = <%- JSON.stringify(recipe); %>

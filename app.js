@@ -76,10 +76,14 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// set flash messages
+// set flash messages, pre-route middleware
 app.use(function(req,res,next){
+
+  // set success flash message
   res.locals.success = req.session.success || '';
   delete req.session.success;
+
+  // set error flash message
   res.locals.error = req.session.error || '';
   delete req.session.error;
 
@@ -101,6 +105,8 @@ app.use(function(req, res, next) {
 // error handler
 app.use((err, req, res, next) => {
 
+  //default express error handler
+  /*
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -108,10 +114,13 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-  
-  // console.log(`Error: ${err}`)
-  // req.session.error = err.message
-  // res.redirect('back')
+  */
+
+  console.log(`App error: ${err}`)
+  console.log(`App error status: ${err.status}`)
+  console.log(`App error stack: ${err.stack}`)
+  req.session.error = err.message
+  res.redirect('back')
 
 });
 

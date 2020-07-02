@@ -1,6 +1,14 @@
 
 @import "base/base";
+
 @import "components/map";
 @import "components/nav-main";
 @import "components/nav-sub";
+@import "components/recipe-card";
+@import "components/buttons";
+
 @import "layout/grid";
+@import "layout/content";
+@import "layout/recipes-grid";
+
+@import "utils/typography";
