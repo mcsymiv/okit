@@ -18,6 +18,7 @@ module.exports = {
     async getRecipes(req,res,next){
         const recipes = await Recipe.find({})
         res.render(`recipes/index`, { recipes })
+        
     },
     // NEW
     getNewRecipe(req, res, next){

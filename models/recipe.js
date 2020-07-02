@@ -12,10 +12,6 @@ const RecipeSchema = new Schema({
             stepDescription: String
         }
     ],
-    mainImage: {
-        url: String,
-        public_id: String
-    },
     images: [ 
         {
             url: String,
