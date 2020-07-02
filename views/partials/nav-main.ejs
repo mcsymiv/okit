@@ -7,6 +7,15 @@
             <li class="nav__left--list-item"><a href="#" class="btn btn-secondary">git</a></li>
         </ul>
     </div>
+    <div class="nav__center">
+        <% if(success && success.length){ %>
+            <h2 class="flash-msg success"><%= success %></h2>
+        <% } %>
+
+        <% if(error && error.length){ %>
+            <h2 class="flash-msg error"><%= error %></h2>
+        <% } %>
+    </div>
     <div class="nav__right">
         <ul class="nav__right--list">
             <li class="nav__right--list-item"><a href="#" class="btn btn-secondary">Settings</a></li>

@@ -1,7 +1,14 @@
 .recipe-card {
     max-width:650px;
-    min-width:450px;
+    min-width:300px;
+    max-height:400px;
+    min-height:300px;
     padding: 20px;
+    background-color: #eee;
+    margin-right: 1.4rem;
+    margin-top: 20px;
+    background-size: cover;
+    background-position: center;
 }
 
 .recipe-more a {

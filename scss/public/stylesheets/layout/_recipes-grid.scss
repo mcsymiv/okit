@@ -1,4 +1,8 @@
 .recipes-grid {
     display: flex;
-    // flex-wrap: no-wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    // margin-top:1.2rem;
+    width:80%;
+    margin: 1.2rem auto;
 }
