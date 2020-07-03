@@ -25,17 +25,25 @@ const app = express();
 
 //mongooseDB connect
 mongoose
-  .connect("mongodb://localhost:27017/okit", {
+  .connect('mongodb://localhost:27017/okit', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
   })
   .then(() => {
-    console.log("database connected");
+    console.log('database connected');
   })
   .catch(err => {
-    console.log("Could not connect", err);
+    console.log('Could not connect', err);
   });
+
+/* alternative error handler 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error'));
+db.once('open',()=>{
+  console.log('database is connected')
+})
+*/
 
 // view engine setup
 app.engine('ejs', engine);
@@ -56,7 +64,7 @@ app.use(sassMiddleware({
   dest: path.join(__dirname, '/public/stylesheets'),
   indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true,
-  outputStyle: "compressed",
+  outputStyle: 'compressed',
   debug: true,
   force: true
 }));
@@ -76,8 +84,15 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// set flash messages, pre-route middleware
+// set local variables, pre-route middleware
 app.use(function(req,res,next){
+
+  // create user auto authentication
+  req.user = {
+    '_id' : '5eff0d5a0e99143d208fc69e',
+    'username' : 'mcs'
+  }
+  res.locals.currentUser = req.user
 
   // set success flash message
   res.locals.success = req.session.success || '';

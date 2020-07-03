@@ -8,8 +8,9 @@ module.exports = {
     async postCreateComment(req, res, next){
         // find recipe by id
         let recipe = await Recipe.findById(req.params.recipe_id)
-        // create comment 
-        // req.body.recipe.author = req.user._id
+        // add author
+        req.body.comment.author = req.user._id
+        // create comment
         let comment = await Comment.create(req.body.comment)
         // assign comment to the recipe
         recipe.comments.push(comment)

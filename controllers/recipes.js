@@ -56,11 +56,15 @@ module.exports = {
                     sort: {
                         '_id': -1
                     }
+                },
+                populate: {
+                    path: 'author',
+                    model: 'User'
                 }
             }
         )
         // let comments = await Comment.find({})
-        res.render(`recipes/show`, { recipe /*, comments */ })
+        res.render(`recipes/show`, { recipe })
     },
     // EDIT
     async getEditRecipe(req, res, next){

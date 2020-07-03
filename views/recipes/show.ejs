@@ -62,20 +62,25 @@
                 </form>
             </div>
     
-            <% if(recipe.comments && recipe.comments.length){recipe.comments.forEach((comment)=>{ %>
+            <% recipe.comments.forEach((comment)=>{ %>
                 <div class="comment__title">
-                    <%= comment.title %> - <%= comment.date.toDateString() %>
+                    <span class="comment__title--text">
+                        <%= comment.title %>
+                    </span> 
+                    <span class="comment__date">
+                        - <%= comment.date.toDateString() %> -
+                    </span> 
+                    <span class="comment__author">
+                        <%= comment.author.username %>
+                    </span> 
                 </div>
                 <div class="comment__body">
                     <%= comment.body %>
                 </div>
-                <div class="comment__author">
-                    <%= comment.author %> 
-                </div>
                 <div class="comment__info">
                     Rated this recipe at: <%= comment.rating %> 
                 </div>
-            <% })} %>
+            <% }) %>
         </section>
 
 
