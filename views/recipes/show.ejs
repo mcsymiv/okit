@@ -30,4 +30,53 @@
             </form>
         </div>
 
+        <!-- comment section -->
+
+        <section class="comments">
+            <div class="comments-box">
+                <div class="commentstittle-box">
+                    <h2>
+                        Comments
+                    </h2>
+                </div>
+                <!-- <div class="comments-create-box">
+                    <button class="comments-create-btn">
+                        Create comment
+                    </button>
+                </div> -->
+            </div>
+
+            <div class="comment-form">
+                <form action="/recipes/<%= recipe._id %>/comments" method="POST">
+                    <div class="comment-form__title">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" placeholder="Comment title" name="comment[title]">
+                    </div>
+                    <div class="comment-form__body">
+                        <textarea name="comment[body]" id="body" placeholder="Write a comment"></textarea>
+                    </div>
+                    <div class="comment-form__rating">
+                        <input type="number" name="comment[rating]" placeholder="Rate recipe">
+                    </div>
+                    <input type="submit" value="Create comment">
+                </form>
+            </div>
+    
+            <% if(recipe.comments && recipe.comments.length){recipe.comments.forEach((comment)=>{ %>
+                <div class="comment__title">
+                    <%= comment.title %> - <%= comment.date.toDateString() %>
+                </div>
+                <div class="comment__body">
+                    <%= comment.body %>
+                </div>
+                <div class="comment__author">
+                    <%= comment.author %> 
+                </div>
+                <div class="comment__info">
+                    Rated this recipe at: <%= comment.rating %> 
+                </div>
+            <% })} %>
+        </section>
+
+
     </div>

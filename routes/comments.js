@@ -1,26 +1,18 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
+const { asyncErrorHandler } = require('../middleware');
+const {
+    postCreateComment,
+    updateComment,
+    deleteComment
+} = require('../controllers/comments')
 
-/* GET index page. */
-router.get('/', (req, res, next) => {
-    res.send('/comment')
-});
 /* POST create page. */
-router.post('/', (req, res, next) => {
-    res.send('/create comment')
-});
-/* GET edit page. */
-router.get('/:comment_id/edit', (req, res, next) => {
-    res.send('/edit comment')
-});
+router.post('/', asyncErrorHandler(postCreateComment));
 /* PUT update page. */
-router.put('/:comment_id', (req, res, next) => {
-    res.send('/udpade comment')
-});
+router.put('/:comment_id', asyncErrorHandler(updateComment));
 /* DELETE home page. */
-router.delete('/:comment_id', (req, res, next) => {
-    res.send('/delete comment')
-});
+router.delete('/:comment_id',asyncErrorHandler(deleteComment));
 
 
 module.exports = router;

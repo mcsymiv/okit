@@ -1,5 +1,6 @@
 
 const Recipe = require('../models/recipe');
+const Comment = require('../models/comment');
 
 // mapbox
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
@@ -18,7 +19,6 @@ module.exports = {
     async getRecipes(req,res,next){
         const recipes = await Recipe.find({})
         res.render(`recipes/index`, { recipes })
-        
     },
     // NEW
     getNewRecipe(req, res, next){
@@ -26,8 +26,9 @@ module.exports = {
     },
     // CREATE
     async postCreateRecipe(req, res, next){
+        // image array in recipe 
         req.body.recipe.images = []
-        
+        // image upload
         for(const file of req.files){
             let image = await cloud.v2.uploader.upload(file.path)
             req.body.recipe.images.push({
@@ -35,7 +36,7 @@ module.exports = {
                 public_id: image.public_id
             })
         }
-
+        // map coordinates
         let response = await geocodingClient.forwardGeocode({
             query: req.body.recipe.location,
             limit: 1
@@ -48,8 +49,18 @@ module.exports = {
     },
     // SHOW
     async getShowRecipe(req,res,next){
-        let recipe = await Recipe.findById(req.params.recipe_id)
-        res.render(`recipes/show`, { recipe })
+        let recipe = await Recipe.findById(req.params.recipe_id).populate(
+            {
+                path: 'comments',
+                options: {
+                    sort: {
+                        '_id': -1
+                    }
+                }
+            }
+        )
+        // let comments = await Comment.find({})
+        res.render(`recipes/show`, { recipe /*, comments */ })
     },
     // EDIT
     async getEditRecipe(req, res, next){
