@@ -6,18 +6,21 @@
     <div class="recipes-grid">
         <% recipes.forEach((recipe)=>{ %>
             <div class="recipe-card" style="background-image: url('<% if(recipe.images[0]){ %><%= recipe.images[0].url %><% } %>');">
-                <div class="recipe-title">
-                    <%= recipe.title %>
+                <div class="recipe__info">
+                    <div class="recipe__info--title">
+                        <%= recipe.title %>
+                    </div>
+                    <div class="recipe__info--date">
+                        <i>created</i> <%= recipe.date.toDateString() %>
+                    </div>
+                    <div class="recipe__info--description">
+                        <%= recipe.description %>
+                    </div>
+                    <div class="recipe__info--more">
+                        <a href="/recipes/<%= recipe._id %>" class="btn btn-secondary fix recipe__info--more-btn">View more</a>
+                    </div>
                 </div>
-                <div class="recipe-data">
-                    <i>created</i> <%= recipe.date.toDateString() %>
-                </div>
-                <div class="recipe-description">
-                    <%= recipe.description %>
-                </div>
-                <div class="recipe-more">
-                    <a href="/recipes/<%= recipe._id %>" class="btn btn-secondary">View more</a>
-                </div>
+                <div class="recipe-bg"></div>
             </div>
         <% }) %>
     </div>

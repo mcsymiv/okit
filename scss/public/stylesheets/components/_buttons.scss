@@ -5,6 +5,7 @@
     background-color: #fff;
     text-decoration: none;
     border: solid 1px rgba(190,190,190,.1);
+    cursor: pointer;
     transition: all .5s;
 }
 .btn:hover{
@@ -19,4 +20,8 @@
     color:#666;
     padding: 8px 15px 8px 15px;
     font-size:.9rem;
+}
+.btn-error {
+    background-color:#E93C60;
+    color: #fff;
 }

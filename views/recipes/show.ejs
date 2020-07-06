@@ -13,7 +13,7 @@
                 </span>
                 <span class="recipe__title--icontrollers-delete">
                     <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" class="form-no-style">
-                        <input type="submit" value="Delete recipe" class="btn btn-secondary">
+                        <input type="submit" value="Delete recipe" class="btn btn-secondary btn-error">
                     </form>
                 </span>
             </div>
@@ -43,7 +43,7 @@
                     </h2>
                 </div>
                 <div class="comments__box--create">
-                    <button class="comments__box--btn">
+                    <button class="comments__box--btn btn btn-secondary">
                         Create comment
                     </button>
                 </div>
@@ -68,12 +68,14 @@
             <% recipe.comments.forEach((comment)=>{ %>
                 <div class="comment">
                     <div class="comment__title">
-                        <div class="comment__title--text">
-                            <%= comment.title %>
-                            <span class="comment__date">
-                                - <%= comment.date.toDateString() %> -
+                        <div class="comment__title">
+                            <span class="comment__title--text">
+                                <%= comment.title %>
+                            </span>
+                            <span class="comment__title--date">
+                                <%= comment.date.toDateString() %>
                             </span> 
-                            <span class="comment__author">
+                            <span class="comment__title--author">
                                 <%= comment.author.username %>
                             </span> 
                         </div> 
@@ -81,7 +83,7 @@
                     <div class="comment__body">
                         <%= comment.body %>
                     </div>
-                    <div class="comment__info">
+                    <div class="comment__rating">
                         Rated this recipe at: <%= comment.rating %> 
                     </div>
                 </div>
@@ -118,9 +120,9 @@
 
             })
             $('.comments__box--btn').on('click', function(){
-                $(this).text() === 'Post comment' ? 
+                $(this).text() === 'Cancel' ? 
                 $(this).text('Create') : 
-                $(this).text('Post comment');
+                $(this).text('Cancel');
                 $('#comment__form').toggle()
             })
         </script>

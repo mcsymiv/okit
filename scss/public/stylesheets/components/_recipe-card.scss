@@ -1,16 +1,58 @@
 .recipe-card {
     max-width:650px;
     min-width:300px;
-    max-height:400px;
-    min-height:300px;
-    padding: 20px;
+    max-height:600px;
+    min-height:400px;
+    padding: 1rem;
     background-color: #eee;
     margin-right: 1.4rem;
     margin-top: 20px;
     background-size: cover;
     background-position: center;
+    border-radius: 20px;
+    position: relative;
 }
-
+.recipe-bg{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width:80%;
+    height:80%;
+    background-color: rgba(0,0,0,.4);
+    border-radius: 20px;
+    filter: blur(16px);
+}
+.recipe__info {
+    position:absolute;
+    top:50%;
+    left: 20%;
+    z-index:9999;
+    &--title {
+        font-size:1.4rem;
+        color:#fff;
+        font-weight: 300;
+        margin:5px;
+    }
+    &--date {
+        font-size:.9rem;
+        color:#aaa;
+        margin:5px 0;
+    }
+    &--description {
+        margin:5px 0;
+        color:#eee;
+    }
+    &--more {
+        margin:15px 0;
+        &-btn {
+            border-radius: 5px;
+        }
+    }
+}
+.fix {
+    display: inline-block;
+}
 .recipe-more a {
     margin-top:20px;
     display: inline-block;
