@@ -7,9 +7,14 @@
 @import "components/recipe-card";
 @import "components/buttons";
 @import "components/flash";
+@import "components/comment";
+@import "components/form";
 
 @import "layout/grid";
 @import "layout/content";
 @import "layout/recipes-grid";
+@import "layout/comments";
+
+@import "pages/recipe";
 
 @import "utils/typography";

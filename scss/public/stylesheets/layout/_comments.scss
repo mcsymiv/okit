@@ -1,0 +1,11 @@
+.comments {
+    padding: 1rem;
+    &__box {
+        border-bottom: solid 1px rgba(0,0,0,.3);
+        display: flex;
+        justify-content: space-between;
+    }
+    &__form {
+        display: none;
+    }
+}

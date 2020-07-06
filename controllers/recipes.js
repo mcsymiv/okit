@@ -116,7 +116,6 @@ module.exports = {
     },
     // DELETE
     async deleteRecipe(req,res,next){
-
         let recipe = await Recipe.findById(req.params.recipe_id)
         if(recipe.images.length){
             for(const image of recipe.images){
