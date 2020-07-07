@@ -2,6 +2,7 @@
 const Recipe = require('../models/recipe');
 const Comment = require('../models/comment');
 
+/*
 // mapbox
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
@@ -13,7 +14,7 @@ cloud.config({
     api_key: '162826219893752',
     api_secret: process.env.CLOUDINARY_SECRET
 })
-
+*/
 module.exports = {
     // INDEX
     async getRecipes(req,res,next){
@@ -36,14 +37,16 @@ module.exports = {
                 public_id: image.public_id
             })
         }
+        /*
         // map coordinates
         let response = await geocodingClient.forwardGeocode({
             query: req.body.recipe.location,
             limit: 1
         }).send()
         req.body.recipe.coordinates = response.body.features[0].geometry.coordinates
-        
+        */
         let recipe = await Recipe.create(req.body.recipe)
+        console.log(recipe)
         req.session.success = `${recipe.title} recipe created successefully`
         res.redirect(`/recipes/${recipe.id}`)
     },

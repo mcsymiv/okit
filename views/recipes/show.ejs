@@ -26,9 +26,17 @@
                     </span>
                 <% }) %>
             </div>
-            <h4 class="recipe__show--description">
-                <%= recipe.description %>
-            </h4>
+            <div class="recipe__show--desc">
+                <div class="recipe__show--description">
+                    <%= recipe.description %>
+                </div>
+                <div class="recipe__show--desc-steps">
+                    <% recipe.steps.forEach((step)=>{ %>
+                        <li class="recipe__show--desc-step"><%= step %></li>
+                    <% }) %>
+                </div>
+
+            </div>
             <!-- <div id='map'></div> -->
 
     </section>
@@ -111,20 +119,5 @@
 
             <% }) %>
         </section>
-
-        <script>
-            $('.toggle-edit-form').on('click', function(){
-                $(this).text() === 'Edit' ? $(this).text('Cancel') :  $(this).text('Edit');
-                $(this).siblings('.edit-comment-form').toggle()
-                $(this).siblings('.comment__form--delete').toggle()
-
-            })
-            $('.comments__box--btn').on('click', function(){
-                $(this).text() === 'Cancel' ? 
-                $(this).text('Create') : 
-                $(this).text('Cancel');
-                $('#comment__form').toggle()
-            })
-        </script>
-
+    <script src="/javascripts/recipe/show.js"></script>
     </div>
